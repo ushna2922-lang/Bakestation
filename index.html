@@ -626,40 +626,42 @@
   <script>
     const WA='923496062396';
     const categories={
-      'Birthday Cakes':[
-        {id:1,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Classic+Birthday',name:'Classic Birthday',desc:'Sponge with cream frosting & your message',price:1500,tag:'Popular'},
-        {id:2,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Themed+Cake',name:'Themed Cake',desc:'Cartoons, sports, florals & more',price:2000,tag:'Custom'},
-        {id:3,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Tier+Birthday',name:'Tier Birthday',desc:'2–3 tier stacked celebration cake',price:3000,tag:'Premium'},
+    const categories = {
+      'Birthday Cakes': [
+        { id: 1, img: 'https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=400&q=80', name: 'Classic Birthday', desc: 'Sponge with cream frosting & your message', price: 1500, tag: 'Popular' },
+        { id: 2, img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&q=80', name: 'Themed Cake', desc: 'Cartoons, sports, florals & more', price: 2000, tag: 'Custom' },
+        { id: 3, img: 'https://images.unsplash.com/photo-1623428454614-abaf00244e52?w=400&q=80', name: 'Tier Birthday', desc: '2–3 tier stacked celebration cake', price: 3000, tag: 'Premium' },
       ],
-      'Flower Cakes':[
-        {id:4,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Floral+Cream+Cake',name:'Floral Cream Cake',desc:'Buttercream flowers on light sponge',price:2000,tag:'Trending'},
-        {id:5,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Rose+Bouquet+Cake',name:'Rose Bouquet Cake',desc:'Red & pink rose design, perfect for gifting',price:2200,tag:'Bestseller'},
+      'Flower Cakes': [
+        { id: 4, img: 'https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=400&q=80', name: 'Floral Cream Cake', desc: 'Buttercream flowers on light sponge', price: 2000, tag: 'Trending' },
+        { id: 5, img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=400&q=80', name: 'Rose Bouquet Cake', desc: 'Red & pink rose design, perfect for gifting', price: 2200, tag: 'Bestseller' },
       ],
-      'Cupcakes':[
-        {id:6,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Cupcake+Set+6pcs',name:'Cupcake Set (6 pcs)',desc:'Assorted flavours with swirl topping',price:900,tag:''},
-        {id:7,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Choco+Cupcakes',name:'Choco Cupcakes (6)',desc:'Dark chocolate sponge & ganache',price:950,tag:''},
+      'Cupcakes': [
+        { id: 6, img: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=400&q=80', name: 'Cupcake Set (6 pcs)', desc: 'Assorted flavours with swirl topping', price: 900, tag: '' },
+        { id: 7, img: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400&q=80', name: 'Choco Cupcakes (6)', desc: 'Dark chocolate sponge & ganache', price: 950, tag: '' },
       ],
-      'Special':[
-        {id:8,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Month+Milestone',name:'Month Milestone',desc:'Baby milestone monthly cake',price:1800,tag:'Cute'},
-        {id:9,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Brownie+Box',name:'Brownie Box',desc:'9 fudgy homemade chocolate brownies',price:1200,tag:'Gift'},
-        {id:10,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Wedding+Cake',name:'Wedding Cake',desc:'Elegant white & floral for your big day',price:4500,tag:'Premium'},
-        {id:11,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Fathers+Day+Special',name:"Father's Day Special",desc:"2.5 Pounds celebration cake — Dad's favourite",price:2200,tag:'25% Off'},
+      'Special': [
+        { id: 8, img: 'https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=400&q=80', name: 'Month Milestone', desc: 'Baby milestone monthly cake', price: 1800, tag: 'Cute' },
+        { id: 9, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80', name: 'Brownie Box', desc: '9 fudgy homemade chocolate brownies', price: 1200, tag: 'Gift' },
+        { id: 10, img: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&q=80', name: 'Wedding Cake', desc: 'Elegant white & gold for your big day', price: 4500, tag: 'Premium' },
       ]
     };
-    const galleryItems=[
-      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Birthday+Cake',label:'Birthday Cake'},
-      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Floral+Cake',label:'Floral Cake'},
-      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Tier+Cake',label:'Tier Cake'},
-      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Cupcakes',label:'Cupcakes'},
-      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Month+Cake',label:'Month Cake'},
-      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Brownies',label:'Brownies'},
-      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Wedding+Cake',label:'Wedding'},
-      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Rose+Cake',label:'Rose Cake'},
-      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Theme+Cake',label:'Theme Cake'},
-      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Choco+Cups',label:'Choco Cups'},
-      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Fathers+Day',label:"Father's Day"},
-      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Special+Cake',label:'Special'},
+    
+    const galleryItems = [
+      { img: 'https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=400&q=80', label: 'Rose Cake' },
+      { img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&q=80', label: 'Birthday' },
+      { img: 'https://images.unsplash.com/photo-1623428454614-abaf00244e52?w=400&q=80', label: 'Tier Cake' },
+      { img: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=400&q=80', label: 'Cupcakes' },
+      { img: 'https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=400&q=80', label: 'Month Cake' },
+      { img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80', label: 'Brownies' },
+      { img: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&q=80', label: 'Wedding' },
+      { img: 'https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=400&q=80', label: 'Floral' },
+      { img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=400&q=80', label: 'Theme' },
+      { img: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400&q=80', label: 'Strawberry' },
+      { img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80', label: 'Gift Cake' },
+      { img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80', label: 'Special' },
     ];
+    
     let cart={},activeTab=Object.keys(categories)[0],currentGalleryLabel='';
     const allCakes=()=>Object.values(categories).flat();
     function renderTabs(){document.getElementById('tabBar').innerHTML=Object.keys(categories).map(k=>`<button class="tab${k===activeTab?' active':''}" onclick="switchTab('${k}')">${k}</button>`).join('');}
