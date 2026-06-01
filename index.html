@@ -1,1 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bake Station - Faisalabad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --teal:#2d8b7a;
+      --teal2:#3aa08d;
+      --teal3:#1f6b5c;
+      --cream:#f7f2eb;
+      --cream2:#ede8df;
+      --cream3:#e0d9ce;
+      --dark:#1a2e2a;
+      --muted:#5a7a72;
+      --border:#c8ddd8;
+      --white:#fff;
+      --accent:#c8a96e;
+    }
+    body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--dark)}
+
+    /* NAV */
+    nav{
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      padding:0 2.5rem;
+      display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:200;height:78px;
+      box-shadow:0 2px 20px #2d8b7a10
+    }
+    .logo{display:flex;align-items:center;gap:.9rem;min-width:0}
+    .logo-icon{
+      width:52px;height:52px;border-radius:50%;
+      background:var(--teal);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .logo-icon svg{width:30px;height:30px}
+    .logo-text{display:flex;flex-direction:column;line-height:1.1}
+    .logo-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--teal);letter-spacing:2px;text-transform:uppercase}
+    .logo-tag{font-size:.6rem;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;font-weight:500;margin-top:1px}
+    .nav-center{display:flex;gap:2rem;list-style:none}
+    .nav-center a{text-decoration:none;color:var(--muted);font-size:.85rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .2s;position:relative}
+    .nav-center a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1.5px;background:var(--teal);transform:scaleX(0);transition:transform .25s;border-radius:2px}
+    .nav-center a:hover{color:var(--teal)}
+    .nav-center a:hover::after{transform:scaleX(1)}
+    .nav-right{display:flex;align-items:center;gap:.8rem}
+    .cart-icon-btn{
+      position:relative;background:var(--teal);border:none;border-radius:50%;
+      width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:1rem;transition:background .2s;flex-shrink:0;color:#fff
+    }
+    .cart-icon-btn:hover{background:var(--teal3)}
+    .cart-badge{
+      position:absolute;bottom:-3px;right:-3px;background:var(--accent);
+      color:#fff;border-radius:50%;width:17px;height:17px;
+      font-size:.58rem;font-weight:800;display:flex;align-items:center;justify-content:center;
+      border:2px solid #fff
+    }
+    .hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:5px;flex-shrink:0}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--teal);border-radius:2px;transition:all .3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{
+      display:none;position:fixed;top:78px;left:0;right:0;
+      background:#fff;border-bottom:1px solid var(--border);z-index:199;
+      box-shadow:0 10px 30px #1a2e2a18;flex-direction:column;align-items:center;padding:1rem 0
+    }
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{
+      padding:.85rem 2rem;text-decoration:none;color:var(--muted);font-weight:500;
+      font-size:.9rem;letter-spacing:1px;text-transform:uppercase;width:100%;text-align:center;
+      border-bottom:1px solid var(--cream2);transition:background .15s
+    }
+    .mobile-menu a:last-child{border-bottom:none}
+    .mobile-menu a:hover{background:var(--cream2);color:var(--teal)}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      background:linear-gradient(145deg,#e8f4f1 0%,#f7f2eb 45%,#edf5f2 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:3rem 1.5rem;position:relative;overflow:hidden
+    }
+    .hero-bg-circle{
+      position:absolute;width:600px;height:600px;border-radius:50%;
+      border:1px solid #2d8b7a18;top:50%;left:50%;transform:translate(-50%,-50%);
+      pointer-events:none
+    }
+    .hero-bg-circle2{
+      position:absolute;width:900px;height:900px;border-radius:50%;
+      border:1px solid #2d8b7a0d;top:50%;left:50%;transform:translate(-50%,-50%);
+      pointer-events:none
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:#fff;color:var(--teal);
+      border:1px solid var(--border);border-radius:999px;
+      padding:.35rem 1.1rem;font-size:.75rem;font-weight:600;
+      margin-bottom:1.5rem;letter-spacing:1.5px;text-transform:uppercase;
+      box-shadow:0 2px 12px #2d8b7a12
+    }
+    .hero-logo{
+      width:110px;height:110px;border-radius:50%;background:var(--teal);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.5rem;
+      box-shadow:0 12px 40px #2d8b7a35;
+      flex-direction:column;gap:.3rem
+    }
+    .hero-logo svg{width:55px;height:55px}
+    .hero-logo-label{color:#fff;font-family:'Cormorant Garamond',serif;font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;text-align:center;width:100%;display:block}
+    .hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.8rem,6vw,4.5rem);font-weight:700;color:var(--teal3);
+      line-height:1.1;margin-bottom:.9rem
+    }
+    .hero h1 em{font-style:italic;color:var(--teal)}
+    .hero p{color:var(--muted);max-width:500px;font-size:1rem;line-height:1.85;margin-bottom:2rem;font-weight:300}
+    .hero-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+    .btn-primary{
+      background:var(--teal);color:#fff;padding:.82rem 2rem;border-radius:999px;
+      border:none;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;
+      box-shadow:0 4px 16px #2d8b7a35;letter-spacing:.5px
+    }
+    .btn-primary:hover{background:var(--teal3);transform:translateY(-1px)}
+    .btn-outline{
+      background:transparent;color:var(--teal);padding:.82rem 2rem;border-radius:999px;
+      border:1.5px solid var(--teal);font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;letter-spacing:.5px
+    }
+    .btn-outline:hover{background:var(--teal);color:#fff}
+    .hero-stats{
+      display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;
+      background:#fff9;backdrop-filter:blur(8px);
+      border:1px solid var(--border);border-radius:20px;
+      padding:1.3rem 2.8rem;box-shadow:0 4px 20px #2d8b7a10
+    }
+    .stat-num{font-family:'Jost',sans-serif;font-size:1.6rem;font-weight:700;color:var(--teal)}
+    .stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:500;margin-top:.2rem;text-align:center}
+
+    /* SECTIONS */
+    .section{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+    .section-head{text-align:center;margin-bottom:2.5rem}
+    .section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:var(--teal3)}
+    .section-head p{color:var(--muted);margin-top:.5rem;font-size:.93rem;font-weight:300;letter-spacing:.3px}
+    .divider{width:40px;height:2px;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:4px;margin:.7rem auto 0}
+
+    /* TABS */
+    .tabs{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+    .tab{
+      background:transparent;color:var(--muted);border:1px solid var(--border);
+      border-radius:999px;padding:.4rem 1.2rem;font-size:.78rem;font-weight:600;
+      cursor:pointer;transition:all .2s;letter-spacing:.8px;text-transform:uppercase
+    }
+    .tab.active,.tab:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+    /* MENU GRID */
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem}
+    .cake-card{
+      background:#fff;border-radius:20px;overflow:hidden;
+      border:1px solid var(--border);transition:transform .25s,box-shadow .25s;
+      animation:fadeUp .35s ease both
+    }
+    .cake-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px #2d8b7a15}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .cake-img-wrap{width:100%;height:200px;overflow:hidden;position:relative;background:var(--cream2)}
+    .cake-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .cake-card:hover .cake-img-wrap img{transform:scale(1.06)}
+    .cake-tag{
+      position:absolute;top:10px;left:10px;background:var(--teal);color:#fff;
+      font-size:.65rem;font-weight:700;padding:.22rem .65rem;border-radius:999px;z-index:1;
+      letter-spacing:.8px;text-transform:uppercase
+    }
+    .cake-info{padding:1.2rem}
+    .cake-name{font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--dark);font-size:1.15rem}
+    .cake-desc{color:var(--muted);font-size:.82rem;margin:.3rem 0 .9rem;line-height:1.6;font-weight:300}
+    .cake-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+    .cake-price{font-weight:700;font-size:1rem;color:var(--teal)}
+    .cake-price small{font-size:.65rem;font-weight:400;color:var(--muted);display:block}
+    .card-btns{display:flex;gap:.4rem}
+    .add-btn{
+      background:var(--cream2);color:var(--teal);border:1px solid var(--border);
+      border-radius:999px;padding:.35rem .9rem;cursor:pointer;font-weight:600;
+      font-size:.78rem;transition:all .2s;min-width:65px;letter-spacing:.3px
+    }
+    .add-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+    .add-btn.added{background:#d1fae5;color:#059669;border-color:#6ee7b7}
+    .order-now-btn{
+      background:var(--teal);color:#fff;border:none;border-radius:999px;
+      padding:.35rem .9rem;cursor:pointer;font-weight:600;font-size:.78rem;
+      transition:all .2s;white-space:nowrap
+    }
+    .order-now-btn:hover{background:var(--teal3)}
+
+    /* GALLERY */
+    .gallery-section{background:#fff;padding:4rem 2rem}
+    .gallery-inner{max-width:1100px;margin:0 auto}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.9rem;margin-top:1.8rem}
+    .gallery-item{
+      aspect-ratio:1;border-radius:16px;overflow:hidden;
+      border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s;
+      position:relative;background:var(--cream2)
+    }
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .gallery-item:hover{transform:scale(1.03);box-shadow:0 8px 22px #2d8b7a20}
+    .gallery-item:hover img{transform:scale(1.08)}
+    .gallery-label{
+      position:absolute;bottom:0;left:0;right:0;
+      background:linear-gradient(transparent,#1a2e2acc);
+      color:#fff;font-size:.68rem;font-weight:600;padding:.5rem .6rem .4rem;
+      text-align:center;letter-spacing:.8px;text-transform:uppercase
+    }
+    .gallery-order-btn{
+      position:absolute;top:7px;right:7px;background:var(--teal);color:#fff;
+      border:none;border-radius:999px;padding:.25rem .65rem;font-size:.65rem;
+      font-weight:700;cursor:pointer;opacity:0;transition:opacity .2s;letter-spacing:.3px
+    }
+    .gallery-item:hover .gallery-order-btn{opacity:1}
+    .gallery-cta{text-align:center;margin-top:2rem}
+    .gallery-cta p{color:var(--muted);font-size:.85rem;margin-bottom:1rem;font-weight:300}
+    .insta-btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+      color:#fff;border:none;border-radius:999px;padding:.7rem 1.6rem;
+      font-weight:600;font-size:.88rem;cursor:pointer;text-decoration:none;
+      transition:opacity .2s;letter-spacing:.3px
+    }
+    .insta-btn:hover{opacity:.88}
+
+    /* CUSTOM */
+    .custom-wrap{padding:2rem 2rem 2.5rem;max-width:1100px;margin:0 auto}
+    .custom-section{
+      background:linear-gradient(135deg,#eaf4f1,#f7f2eb);
+      border-radius:24px;padding:3.5rem 2rem;text-align:center;border:1px solid var(--border)
+    }
+    .custom-section h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--teal3);margin-bottom:.7rem}
+    .custom-section p{color:var(--muted);font-size:.95rem;max-width:520px;margin:0 auto 1.8rem;line-height:1.85;font-weight:300}
+    .custom-features{display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap;margin-bottom:1.8rem}
+    .feat-pill{
+      background:#fff;border:1px solid var(--border);border-radius:999px;
+      padding:.38rem 1rem;font-size:.78rem;color:var(--teal);font-weight:600;
+      white-space:nowrap;letter-spacing:.3px
+    }
+
+    /* CONTACT */
+    .contact-full{background:linear-gradient(160deg,#1a2e2a 0%,#2d4a42 100%);padding:5rem 2rem}
+    .contact-full-inner{max-width:1100px;margin:0 auto}
+    .contact-full h2{text-align:center;font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:#fff;margin-bottom:.4rem}
+    .contact-full .sub{text-align:center;color:#8ab8ae;font-size:.9rem;margin-bottom:.5rem;font-weight:300;letter-spacing:.5px}
+    .cdivider{width:40px;height:2px;background:linear-gradient(90deg,var(--teal2),var(--teal));border-radius:4px;margin:.5rem auto 2.5rem}
+    .contact-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem;margin-bottom:2.5rem}
+    .cc{
+      background:#ffffff0d;border:1px solid #ffffff18;border-radius:20px;
+      padding:1.7rem 1.3rem;text-align:center;transition:all .25s;cursor:pointer;
+      text-decoration:none;display:block
+    }
+    .cc:hover{background:#ffffff1a;transform:translateY(-3px);box-shadow:0 8px 24px #00000030}
+    .cc .cicon{font-size:2rem;margin-bottom:.7rem}
+    .cc h4{color:#7ecfc3;font-size:.88rem;font-weight:700;margin-bottom:.4rem;letter-spacing:.8px;text-transform:uppercase}
+    .cc p{color:#9bbcb5;font-size:.82rem;line-height:1.7;font-weight:300}
+    .cc .cc-link{color:#7ecfc3;font-weight:600;font-size:.82rem;display:inline-block;margin-top:.4rem}
+    .social-row{display:flex;justify-content:center;gap:.9rem;flex-wrap:wrap}
+    .social-btn{
+      display:inline-flex;align-items:center;gap:.55rem;border-radius:999px;
+      padding:.75rem 1.8rem;font-weight:600;font-size:.9rem;cursor:pointer;
+      text-decoration:none;border:none;transition:all .2s;white-space:nowrap;letter-spacing:.3px
+    }
+    .social-btn:hover{opacity:.87;transform:translateY(-2px)}
+    .wa-btn{background:#25d366;color:#fff;box-shadow:0 4px 14px #25d36640}
+    .ig-btn{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;box-shadow:0 4px 14px #fd1d1d40}
+    .contact-tagline{text-align:center;color:#4a7a70;font-size:.75rem;margin-top:2rem;letter-spacing:1px;text-transform:uppercase}
+
+    /* FLOAT WA */
+    .float-wa{
+      position:fixed;bottom:1.5rem;right:1.5rem;z-index:150;background:#25d366;color:#fff;
+      border:none;border-radius:50%;width:52px;height:52px;font-size:1.4rem;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 18px #25d36660;cursor:pointer;text-decoration:none;transition:transform .2s
+    }
+    .float-wa:hover{transform:scale(1.1)}
+    footer{background:#111f1c;color:#4a7a70;text-align:center;padding:1.5rem;font-size:.78rem;letter-spacing:.8px}
+    footer span{color:#7ecfc3;font-weight:700}
+    footer a{color:#7ecfc3;text-decoration:none}
+
+    /* CART */
+    .overlay{display:none;position:fixed;inset:0;background:#0008;z-index:300;justify-content:flex-end}
+    .overlay.open{display:flex}
+    .cart-panel{background:#fff;width:380px;max-width:100vw;height:100%;display:flex;flex-direction:column}
+    .cart-header{background:var(--cream);padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+    .cart-header h3{color:var(--teal);font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem}
+    .close-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
+    .close-btn:hover{color:var(--teal)}
+    .cart-items{flex:1;overflow-y:auto;padding:1rem 1.4rem}
+    .empty-cart{text-align:center;color:var(--muted);margin-top:3rem;font-size:.9rem;font-weight:300}
+    .cart-item{display:flex;align-items:center;gap:.8rem;padding:.8rem 0;border-bottom:1px solid var(--cream2)}
+    .cart-item-img{width:46px;height:46px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--cream2)}
+    .cart-item-info{flex:1;min-width:0}
+    .cart-item-name{font-weight:600;font-size:.86rem;color:var(--dark)}
+    .cart-item-price{color:var(--teal);font-size:.82rem;font-weight:700}
+    .qty-ctrl{display:flex;align-items:center;gap:.4rem;margin-top:.25rem}
+    .qty-btn{
+      background:var(--cream2);border:1px solid var(--border);border-radius:50%;
+      width:22px;height:22px;cursor:pointer;font-weight:700;font-size:.8rem;
+      color:var(--teal);display:flex;align-items:center;justify-content:center
+    }
+    .qty-btn:hover{background:var(--teal);color:#fff}
+    .qty-num{font-size:.84rem;font-weight:700;min-width:18px;text-align:center}
+    .remove-btn{background:none;border:none;color:#fca5a5;cursor:pointer;font-size:1rem;flex-shrink:0}
+    .remove-btn:hover{color:#ef4444}
+    .cart-footer{padding:1.2rem 1.5rem;border-top:1px solid var(--border);background:var(--cream)}
+    .cart-total{display:flex;justify-content:space-between;font-weight:700;font-size:.98rem;margin-bottom:1rem;color:var(--dark)}
+    .checkout-btn{width:100%;background:var(--teal);color:#fff;border:none;border-radius:999px;padding:.8rem;font-weight:600;font-size:.95rem;cursor:pointer;transition:background .2s;letter-spacing:.3px}
+    .checkout-btn:hover{background:var(--teal3)}
+
+    /* MODALS */
+    .modal-overlay{display:none;position:fixed;inset:0;background:#0008;z-index:400;align-items:center;justify-content:center;padding:1rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:#fff;border-radius:22px;padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
+    .modal h3{color:var(--teal);font-family:'Cormorant Garamond',serif;font-weight:700;margin-bottom:1.2rem;font-size:1.3rem}
+    .form-group{margin-bottom:1rem}
+    .form-group label{display:block;font-size:.75rem;font-weight:600;color:var(--muted);margin-bottom:.32rem;letter-spacing:.8px;text-transform:uppercase}
+    .form-group input,.form-group textarea,.form-group select{
+      width:100%;border:1.5px solid var(--border);border-radius:12px;
+      padding:.6rem .9rem;font-size:.9rem;outline:none;background:var(--cream);
+      color:var(--dark);transition:border .2s;font-family:inherit;font-weight:300
+    }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--teal)}
+    .form-group textarea{height:78px;resize:vertical}
+    .cod-badge{
+      background:#e8f4f1;border:1px solid var(--border);border-radius:8px;
+      padding:.45rem .9rem;font-size:.78rem;color:var(--teal);font-weight:600;
+      display:inline-flex;align-items:center;gap:.35rem;margin-bottom:.9rem;letter-spacing:.3px
+    }
+    .order-summary{background:var(--cream);border-radius:12px;padding:.9rem;margin-bottom:.9rem;font-size:.82rem}
+    .order-summary-row{display:flex;justify-content:space-between;padding:.2rem 0;color:var(--muted)}
+    .order-summary-total{display:flex;justify-content:space-between;padding:.45rem 0 0;border-top:1px solid var(--border);font-weight:700;color:var(--teal);margin-top:.3rem}
+    .place-btn{width:100%;background:var(--teal);color:#fff;border:none;border-radius:999px;padding:.8rem;font-weight:600;font-size:.95rem;cursor:pointer;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem;letter-spacing:.3px}
+    .place-btn:hover{background:var(--teal3)}
+    .cancel-btn{width:100%;background:none;border:1.5px solid var(--border);border-radius:999px;padding:.68rem;font-weight:500;font-size:.88rem;cursor:pointer;color:var(--muted);margin-top:.5rem}
+    .cancel-btn:hover{border-color:var(--teal);color:var(--teal)}
+    .success-modal{text-align:center}
+    .success-modal .check{font-size:3rem;margin-bottom:.5rem}
+    .success-modal h3{color:#059669;font-size:1.3rem}
+    .success-modal p{color:var(--muted);margin:.6rem 0 1.1rem;font-size:.88rem;line-height:1.8;font-weight:300}
+
+    @media(max-width:640px){
+      nav{height:68px;padding:0 1rem}
+      .logo-icon{width:44px;height:44px}
+      .logo-name{font-size:1.1rem}
+      .nav-center{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{top:68px}
+      .hero{padding:2rem 1.2rem;min-height:100svh}
+      .hero h1{font-size:2.4rem}
+      .hero-stats{gap:1.5rem;padding:1rem 1.5rem}
+      .section{padding:2.8rem 1.1rem}
+      .menu-grid{grid-template-columns:1fr;gap:1rem}
+      .gallery-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+      .custom-wrap{padding:1.5rem 1.1rem 2rem}
+      .custom-section{padding:2.2rem 1.2rem}
+      .contact-cards{grid-template-columns:1fr 1fr}
+      .social-row{flex-direction:column;align-items:center}
+      .float-wa{width:46px;height:46px;font-size:1.2rem;bottom:1rem;right:1rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG LOGO (inline for reuse) -->
+  <svg style="display:none">
+    <symbol id="bs-logo" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cake base layers -->
+      <ellipse cx="30" cy="42" rx="18" ry="5" stroke="white" stroke-width="1.8" fill="none"/>
+      <ellipse cx="30" cy="35" rx="14" ry="4" stroke="white" stroke-width="1.8" fill="none"/>
+      <!-- Sides -->
+      <line x1="12" y1="42" x2="16" y2="35" stroke="white" stroke-width="1.8"/>
+      <line x1="48" y1="42" x2="44" y2="35" stroke="white" stroke-width="1.8"/>
+      <!-- Cherry stem -->
+      <path d="M30 31 Q32 26 30 22" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <!-- Cherry -->
+      <circle cx="30" cy="20" r="3" stroke="white" stroke-width="1.8" fill="none"/>
+    </symbol>
+  </svg>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg><use href="#bs-logo"/></svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">Bake Station</div>
+        <div class="logo-tag">Faisalabad · Homemade</div>
+      </div>
+    </div>
+    <ul class="nav-center">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#custom">Custom</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-icon-btn" onclick="openCart()" aria-label="Cart">
+        🛒<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#menu" onclick="closeMenu()">Menu</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#custom" onclick="closeMenu()">Custom Cake</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <div id="home" class="hero">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle2"></div>
+    <div class="hero-badge">✦ Homemade · Faisalabad</div>
+    <div class="hero-logo">
+      <svg><use href="#bs-logo"/></svg>
+    </div>
+    <h1>Crafted with Love,<br><em>Baked for You</em></h1>
+    <p>Customise your cakes for every occasion — birthdays, weddings, and milestones — at reasonable prices that make every celebration unforgettable.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Order Now</button>
+      <button class="btn-outline" onclick="document.getElementById('custom').scrollIntoView({behavior:'smooth'})">Custom Cake</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Happy Orders</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Homemade</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5 <span style="font-size:1rem">★</span></div>
+        <div class="stat-label">Rated</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="menu">
+    <div class="section-head">
+      <h2>Our Menu</h2>
+      <p>Fresh, beautiful & handcrafted for every occasion</p>
+      <div class="divider"></div>
+    </div>
+    <div class="tabs" id="tabBar"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <div class="gallery-section" id="gallery">
+    <div class="gallery-inner">
+      <div class="section-head">
+        <h2>Previous Creations</h2>
+        <p>A glimpse of the love we've baked — tap any to order the same</p>
+        <div class="divider"></div>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <div class="gallery-cta">
+        <p>See hundreds more creations on our Instagram</p>
+        <a class="insta-btn" href="https://www.instagram.com/bakestationpk?igsh=a2luYXYzbDRlNGNn" target="_blank">📸 View Full Gallery on Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-wrap" id="custom">
+    <div class="custom-section">
+      <h3>Custom Cake Orders</h3>
+      <p>Want something truly unique? We craft cakes for birthdays, weddings, anniversaries, baby showers, and any special occasion — your design, your flavour, your story.</p>
+      <div class="custom-features">
+        <span class="feat-pill">🎂 Themed Cakes</span>
+        <span class="feat-pill">🌸 Flower Cakes</span>
+        <span class="feat-pill">🏆 Tier Cakes</span>
+        <span class="feat-pill">👶 Month Cakes</span>
+        <span class="feat-pill">💍 Wedding Cakes</span>
+        <span class="feat-pill">🧁 Cupcake Sets</span>
+      </div>
+      <button class="btn-primary" style="font-size:.9rem;padding:.85rem 2.2rem" onclick="openCustomModal()">Request Custom Cake ✨</button>
+    </div>
+  </div>
+
+  <div class="contact-full" id="contact">
+    <div class="contact-full-inner">
+      <h2>Get in Touch</h2>
+      <p class="sub">We'd love to bake something special for you</p>
+      <div class="cdivider"></div>
+      <div class="contact-cards">
+        <a class="cc" href="https://wa.me/923496062396" target="_blank">
+          <div class="cicon">💬</div>
+          <h4>WhatsApp Us</h4>
+          <p>Chat for orders, pricing & custom queries</p>
+          <span class="cc-link">+92 349 6062396 →</span>
+        </a>
+        <a class="cc" href="https://www.instagram.com/bakestationpk?igsh=a2luYXYzbDRlNGNn" target="_blank">
+          <div class="cicon">📸</div>
+          <h4>Instagram</h4>
+          <p>Browse our portfolio & DM to place orders</p>
+          <span class="cc-link">@bakestationpk →</span>
+        </a>
+        <div class="cc" style="cursor:default">
+          <div class="cicon">📍</div>
+          <h4>Location</h4>
+          <p>Madina Town, Faisalabad<br>Home delivery within city</p>
+        </div>
+        <div class="cc" style="cursor:default">
+          <div class="cicon">🕐</div>
+          <h4>Working Hours</h4>
+          <p>Monday – Saturday<br>9:00 AM – 8:00 PM</p>
+        </div>
+        <div class="cc" style="cursor:default">
+          <div class="cicon">💵</div>
+          <h4>Payment</h4>
+          <p>Cash on Delivery (COD)<br>Pay when your cake arrives</p>
+        </div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn wa-btn" href="https://wa.me/923496062396" target="_blank">💬 Chat on WhatsApp</a>
+        <a class="social-btn ig-btn" href="https://www.instagram.com/bakestationpk?igsh=a2luYXYzbDRlNGNn" target="_blank">📸 Follow on Instagram</a>
+      </div>
+      <p class="contact-tagline">Bake Station · Crafted with love · Faisalabad</p>
+    </div>
+  </div>
+
+  <footer>
+    <p><span>Bake Station</span> · Faisalabad &nbsp;|&nbsp; © 2026 &nbsp;|&nbsp;
+      <a href="https://www.instagram.com/bakestationpk?igsh=a2luYXYzbDRlNGNn" target="_blank">@bakestationpk</a>
+    </p>
+  </footer>
+
+  <a class="float-wa" href="https://wa.me/923496062396" target="_blank" title="Chat on WhatsApp">💬</a>
+
+  <!-- CART -->
+  <div class="overlay" id="cartOverlay" onclick="closeCartOutside(event)">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h3>🛒 Your Cart</h3>
+        <button class="close-btn" onclick="closeCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <p class="empty-cart">Your cart is empty<br><small>Add some cakes!</small></p>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display:none">
+        <div class="cart-total"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
+        <button class="checkout-btn" onclick="openCheckout()">Proceed to Order (COD) →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal" id="checkoutContent">
+      <h3>Place Your Order</h3>
+      <div class="cod-badge">💵 Cash on Delivery</div>
+      <div class="order-summary" id="orderSummary"></div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Your full name"/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="03XX-XXXXXXX"/></div>
+      <div class="form-group"><label>Delivery Address</label><textarea id="custAddr" placeholder="House #, Street, Area, Faisalabad"></textarea></div>
+      <div class="form-group"><label>Special Instructions (optional)</label><textarea id="custNote" placeholder="Message on cake, flavour preference..."></textarea></div>
+      <button class="place-btn" onclick="placeOrder()">Place Order</button>
+      <button class="cancel-btn" onclick="closeCheckout()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- CUSTOM MODAL -->
+  <div class="modal-overlay" id="customModal">
+    <div class="modal">
+      <h3>Custom Cake Request</h3>
+      <div class="form-group"><label>Your Name</label><input type="text" id="cName" placeholder="Full name"/></div>
+      <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="cPhone" placeholder="03XX-XXXXXXX"/></div>
+      <div class="form-group"><label>Cake Type</label>
+        <select id="cType">
+          <option value="">Select cake type...</option>
+          <option>Birthday Cake</option><option>Wedding Cake</option><option>Tier Cake</option>
+          <option>Flower Cake</option><option>Theme Cake</option><option>Month Cake</option>
+          <option>Cupcake Set</option><option>Brownie Box</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Size</label>
+        <select id="cSize">
+          <option value="">Select size...</option>
+          <option>Size 1 (Small) — Rs. 1500</option><option>Size 2 (Medium) — Rs. 2000</option>
+          <option>Size 3 (Large) — Rs. 3000</option><option>2.5 Pounds — Rs. 2200</option>
+          <option>Not sure — discuss with baker</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Flavour</label>
+        <select id="cFlavour">
+          <option value="">Select flavour...</option>
+          <option>Chocolate</option><option>Vanilla</option><option>Red Velvet</option>
+          <option>Strawberry</option><option>Caramel</option><option>Black Forest</option>
+          <option>Lemon</option><option>Mix / Surprise me</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Event Date</label><input type="date" id="cDate"/></div>
+      <div class="form-group"><label>Design / Message on Cake</label><textarea id="cDesc" placeholder="Describe your dream cake — theme, colours, message..."></textarea></div>
+      <button class="place-btn" onclick="submitCustom()">Place Order</button>
+      <button class="cancel-btn" onclick="closeCustomModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- GALLERY ORDER MODAL -->
+  <div class="modal-overlay" id="galleryOrderModal">
+    <div class="modal" id="galleryOrderContent">
+      <h3 id="galleryOrderTitle">Order This Cake</h3>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem;line-height:1.7;font-weight:300">Fill in your details and we'll confirm your order on WhatsApp!</p>
+      <div class="form-group"><label>Full Name</label><input type="text" id="gName" placeholder="Your full name"/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="gPhone" placeholder="03XX-XXXXXXX"/></div>
+      <div class="form-group"><label>Delivery Address</label><textarea id="gAddr" placeholder="House #, Street, Area, Faisalabad"></textarea></div>
+      <div class="form-group"><label>Special Requests (optional)</label><textarea id="gNote" placeholder="Message on cake, colour preference..."></textarea></div>
+      <button class="place-btn" onclick="submitGalleryOrder()">Place Order</button>
+      <button class="cancel-btn" onclick="closeGalleryOrderModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    const WA='923496062396';
+    const categories={
+      'Birthday Cakes':[
+        {id:1,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Classic+Birthday',name:'Classic Birthday',desc:'Sponge with cream frosting & your message',price:1500,tag:'Popular'},
+        {id:2,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Themed+Cake',name:'Themed Cake',desc:'Cartoons, sports, florals & more',price:2000,tag:'Custom'},
+        {id:3,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Tier+Birthday',name:'Tier Birthday',desc:'2–3 tier stacked celebration cake',price:3000,tag:'Premium'},
+      ],
+      'Flower Cakes':[
+        {id:4,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Floral+Cream+Cake',name:'Floral Cream Cake',desc:'Buttercream flowers on light sponge',price:2000,tag:'Trending'},
+        {id:5,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Rose+Bouquet+Cake',name:'Rose Bouquet Cake',desc:'Red & pink rose design, perfect for gifting',price:2200,tag:'Bestseller'},
+      ],
+      'Cupcakes':[
+        {id:6,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Cupcake+Set+6pcs',name:'Cupcake Set (6 pcs)',desc:'Assorted flavours with swirl topping',price:900,tag:''},
+        {id:7,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Choco+Cupcakes',name:'Choco Cupcakes (6)',desc:'Dark chocolate sponge & ganache',price:950,tag:''},
+      ],
+      'Special':[
+        {id:8,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Month+Milestone',name:'Month Milestone',desc:'Baby milestone monthly cake',price:1800,tag:'Cute'},
+        {id:9,img:'https://placehold.co/400x300/1f6b5c/ffffff?text=Brownie+Box',name:'Brownie Box',desc:'9 fudgy homemade chocolate brownies',price:1200,tag:'Gift'},
+        {id:10,img:'https://placehold.co/400x300/2d8b7a/ffffff?text=Wedding+Cake',name:'Wedding Cake',desc:'Elegant white & floral for your big day',price:4500,tag:'Premium'},
+        {id:11,img:'https://placehold.co/400x300/3aa08d/ffffff?text=Fathers+Day+Special',name:"Father's Day Special",desc:"2.5 Pounds celebration cake — Dad's favourite",price:2200,tag:'25% Off'},
+      ]
+    };
+    const galleryItems=[
+      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Birthday+Cake',label:'Birthday Cake'},
+      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Floral+Cake',label:'Floral Cake'},
+      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Tier+Cake',label:'Tier Cake'},
+      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Cupcakes',label:'Cupcakes'},
+      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Month+Cake',label:'Month Cake'},
+      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Brownies',label:'Brownies'},
+      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Wedding+Cake',label:'Wedding'},
+      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Rose+Cake',label:'Rose Cake'},
+      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Theme+Cake',label:'Theme Cake'},
+      {img:'https://placehold.co/300x300/2d8b7a/ffffff?text=Choco+Cups',label:'Choco Cups'},
+      {img:'https://placehold.co/300x300/3aa08d/ffffff?text=Fathers+Day',label:"Father's Day"},
+      {img:'https://placehold.co/300x300/1f6b5c/ffffff?text=Special+Cake',label:'Special'},
+    ];
+    let cart={},activeTab=Object.keys(categories)[0],currentGalleryLabel='';
+    const allCakes=()=>Object.values(categories).flat();
+    function renderTabs(){document.getElementById('tabBar').innerHTML=Object.keys(categories).map(k=>`<button class="tab${k===activeTab?' active':''}" onclick="switchTab('${k}')">${k}</button>`).join('');}
+    function switchTab(t){activeTab=t;renderTabs();renderMenu();}
+    function renderMenu(){
+      document.getElementById('menuGrid').innerHTML=categories[activeTab].map((c,i)=>`
+      <div class="cake-card" style="animation-delay:${i*.07}s">
+        <div class="cake-img-wrap">
+          ${c.tag?`<span class="cake-tag">${c.tag}</span>`:''}
+          <img src="${c.img}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+        <div class="cake-info">
+          <div class="cake-name">${c.name}</div>
+          <div class="cake-desc">${c.desc}</div>
+          <div class="cake-footer">
+            <div class="cake-price">Rs. ${c.price.toLocaleString()}<small>Starting price</small></div>
+            <div class="card-btns">
+              <button class="add-btn" onclick="addToCart(${c.id},this)">+ Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+    }
+    function renderGallery(){
+      document.getElementById('galleryGrid').innerHTML=galleryItems.map(g=>`
+      <div class="gallery-item" onclick="openGalleryOrder('${g.label}')">
+        <img src="${g.img}" alt="${g.label}" loading="lazy" onerror="this.parentNode.style.background='var(--cream2)';this.style.display='none'"/>
+        <div class="gallery-label">${g.label}</div>
+        <button class="gallery-order-btn" onclick="event.stopPropagation();openGalleryOrder('${g.label}')">Order Same</button>
+      </div>`).join('');
+    }
+    function addToCart(id,btn){
+      cart[id]=(cart[id]||0)+1;updateBadge();renderCartItems();
+      if(btn){const o=btn.textContent;btn.textContent='✓ Added';btn.classList.add('added');btn.disabled=true;
+        setTimeout(()=>{btn.textContent=o;btn.classList.remove('added');btn.disabled=false;},1100);}
+    }
+    function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updateBadge();renderCartItems();}
+    function removeFromCart(id){delete cart[id];updateBadge();renderCartItems();}
+    function updateBadge(){document.getElementById('cartBadge').textContent=Object.values(cart).reduce((a,b)=>a+b,0);}
+    function getTotal(){return Object.entries(cart).reduce((s,[id,q])=>{const c=allCakes().find(x=>x.id==id);return s+(c?c.price*q:0);},0);}
+    function renderCartItems(){
+      const el=document.getElementById('cartItems'),footer=document.getElementById('cartFooter'),keys=Object.keys(cart);
+      if(!keys.length){el.innerHTML='<p class="empty-cart">Your cart is empty<br><small>Add some cakes!</small></p>';footer.style.display='none';return;}
+      footer.style.display='block';
+      el.innerHTML=keys.map(id=>{const c=allCakes().find(x=>x.id==id);return`
+      <div class="cart-item">
+        <img class="cart-item-img" src="${c.img}" alt="${c.name}" onerror="this.style.display='none'"/>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${c.name}</div>
+          <div class="cart-item-price">Rs. ${(c.price*cart[id]).toLocaleString()}</div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+            <span class="qty-num">${cart[id]}</span>
+            <button class="qty-btn" onclick="changeQty(${id},1)">+</button>
+          </div>
+        </div>
+        <button class="remove-btn" onclick="removeFromCart(${id})">🗑</button>
+      </div>`;}).join('');
+      document.getElementById('cartTotal').textContent='Rs. '+getTotal().toLocaleString();
+    }
+    function openCart(){document.getElementById('cartOverlay').classList.add('open');}
+    function closeCart(){document.getElementById('cartOverlay').classList.remove('open');}
+    function closeCartOutside(e){if(e.target===document.getElementById('cartOverlay'))closeCart();}
+    function openCheckout(){
+      closeCart();
+      document.getElementById('orderSummary').innerHTML=Object.keys(cart).map(id=>{
+        const c=allCakes().find(x=>x.id==id);
+        return`<div class="order-summary-row"><span>${c.name} x${cart[id]}</span><span>Rs. ${(c.price*cart[id]).toLocaleString()}</span></div>`;
+      }).join('')+`<div class="order-summary-total"><span>Total</span><span>Rs. ${getTotal().toLocaleString()}</span></div>`;
+      document.getElementById('checkoutModal').classList.add('open');
+    }
+    function closeCheckout(){document.getElementById('checkoutModal').classList.remove('open');}
+    function placeOrder(){
+      const n=document.getElementById('custName').value.trim(),p=document.getElementById('custPhone').value.trim(),a=document.getElementById('custAddr').value.trim(),note=document.getElementById('custNote').value.trim();
+      if(!n||!p||!a){alert('Please fill in all required fields');return;}
+      const items=Object.keys(cart).map(id=>{const c=allCakes().find(x=>x.id==id);return`  • ${c.name} x${cart[id]} — Rs. ${(c.price*cart[id]).toLocaleString()}`;}).join('\n');
+      const msg=`🎂 *New Order - Bake Station*\n\n*Customer:* ${n}\n*Phone:* ${p}\n*Address:* ${a}\n\n*Order Items:*\n${items}\n\n*Total:* Rs. ${getTotal().toLocaleString()}\n*Payment:* Cash on Delivery (COD)${note?`\n\n*Special Instructions:* ${note}`:''}`;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+      cart={};updateBadge();renderCartItems();closeCheckout();
+      document.getElementById('checkoutContent').innerHTML=`
+      <div class="success-modal"><div class="check">🎉</div><h3>Order Sent!</h3>
+      <p>Your order has been sent to WhatsApp!<br>We'll confirm your order shortly.<br><br>💵 Keep cash ready for COD delivery.</p>
+      <button class="place-btn" onclick="resetOrder()">Continue Shopping</button></div>`;
+    }
+    function resetOrder(){
+      closeCheckout();
+      document.getElementById('checkoutContent').innerHTML=`<h3>Place Your Order</h3>
+      <div class="cod-badge">💵 Cash on Delivery</div>
+      <div class="order-summary" id="orderSummary"></div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Your full name"/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="03XX-XXXXXXX"/></div>
+      <div class="form-group"><label>Delivery Address</label><textarea id="custAddr" placeholder="House #, Street, Area, Faisalabad"></textarea></div>
+      <div class="form-group"><label>Special Instructions (optional)</label><textarea id="custNote" placeholder="Message on cake, flavour..."></textarea></div>
+      <button class="place-btn" onclick="placeOrder()">Place Order</button>
+      <button class="cancel-btn" onclick="closeCheckout()">Cancel</button>`;
+    }
+    function openCustomModal(){document.getElementById('customModal').classList.add('open');}
+    function closeCustomModal(){document.getElementById('customModal').classList.remove('open');}
+    function submitCustom(){
+      const n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim(),t=document.getElementById('cType').value,s=document.getElementById('cSize').value,f=document.getElementById('cFlavour').value,d=document.getElementById('cDate').value,desc=document.getElementById('cDesc').value.trim();
+      if(!n||!p||!t){alert('Please fill name, phone & cake type');return;}
+      const msg=`🎨 *Custom Cake Request - Bake Station*\n\n*Name:* ${n}\n*Phone:* ${p}\n*Cake Type:* ${t}${s?`\n*Size:* ${s}`:''}${f?`\n*Flavour:* ${f}`:''}${d?`\n*Event Date:* ${d}`:''}${desc?`\n*Design/Message:* ${desc}`:''}`;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+      document.querySelector('#customModal .modal').innerHTML=`
+      <div class="success-modal"><div class="check">✨</div><h3>Request Sent!</h3>
+      <p>Your custom cake request has been sent!<br>We'll contact you shortly to discuss details.<br><br>
+      <a href="https://www.instagram.com/bakestationpk?igsh=a2luYXYzbDRlNGNn" target="_blank" style="color:var(--teal);font-weight:600">@bakestationpk</a></p>
+      <button class="place-btn" onclick="location.reload()">Back to Shop</button></div>`;
+    }
+    function openGalleryOrder(label){currentGalleryLabel=label;document.getElementById('galleryOrderTitle').textContent=`Order: ${label}`;document.getElementById('galleryOrderModal').classList.add('open');}
+    function closeGalleryOrderModal(){document.getElementById('galleryOrderModal').classList.remove('open');}
+    function submitGalleryOrder(){
+      const n=document.getElementById('gName').value.trim(),p=document.getElementById('gPhone').value.trim(),a=document.getElementById('gAddr').value.trim(),note=document.getElementById('gNote').value.trim();
+      if(!n||!p||!a){alert('Please fill in all required fields');return;}
+      const msg=`🎂 *Gallery Order - Bake Station*\n\n*Cake:* ${currentGalleryLabel}\n*Name:* ${n}\n*Phone:* ${p}\n*Address:* ${a}\n*Payment:* Cash on Delivery (COD)${note?`\n*Special Requests:* ${note}`:''}`;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+      closeGalleryOrderModal();
+    }
+    function toggleMenu(){const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');m.classList.toggle('open');h.classList.toggle('open');}
+    function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
+    document.addEventListener('click',e=>{const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target))closeMenu();});
+    document.addEventListener('DOMContentLoaded',function(){renderTabs();renderMenu();renderGallery();});
+  </script>
+</body>
+</html>
 
